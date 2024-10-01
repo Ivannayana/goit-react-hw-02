@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Feedback/Feedback.module.css";
 
-const Feedback = ({ feedback }) => {
+const Feedback = ({ feedback, totalFeedback, positivePercentage }) => {
   return (
     <ul className={styles.list}>
       <li className={styles.item}>Good: {feedback.good}</li>
