@@ -20,13 +20,11 @@ const App = () => {
     if (savedFeedback) {
       setFeedback(JSON.parse(savedFeedback));
     }
-  }, []);
+  }, [feedback]);
 
   useEffect(() => {
     localStorage.setItem("feedback", JSON.stringify(feedback));
   }, [feedback]);
-
-  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
   const updateFeedback = (feedbackType) => {
     setFeedback((prevFeedback) => ({
@@ -40,17 +38,24 @@ const App = () => {
     localStorage.removeItem("feedback");
   };
 
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const positivePercentage = Math.round((feedback.good / totalFeedback) * 100);
+
   return (
     <div>
       <Description />
-      <Options updateFeedback={updateFeedback} />
-      {totalFeedback > 0 ? (
-        <>
-          <Feedback feedback={feedback} />
-          <button onClick={resetFeedback}>Reset</button>
-        </>
-      ) : (
-        <Notification message="No feedback given yet" />
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
+      {totalFeedback === 0 && <Notification message="No feedback given yet" />}
+      {totalFeedback > 0 && (
+        <Feedback
+          feedback={feedback}
+          totalFeedback={totalFeedback}
+          positivePercentage={positivePercentage}
+        />
       )}
     </div>
   );
