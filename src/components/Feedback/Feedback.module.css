@@ -1,0 +1,10 @@
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.item {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
