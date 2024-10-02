@@ -9,11 +9,14 @@ import Feedback from "./components/Feedback/Feedback";
 import Notification from "./components/Notification/Notification";
 
 const App = () => {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [feedback, setFeedback] = useState(
+    () =>
+      JSON.parse(localStorage.getItem("feedback")) || {
+        good: 0,
+        neutral: 0,
+        bad: 0,
+      }
+  );
 
   useEffect(() => {
     localStorage.setItem("feedback", JSON.stringify(feedback));
@@ -28,11 +31,6 @@ const App = () => {
 
   const resetFeedback = () => {
     setFeedback({ good: 0, neutral: 0, bad: 0 });
-
-    localStorage.setItem(
-      "feedback",
-      JSON.stringify({ good: 0, neutral: 0, bad: 0 })
-    );
   };
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
