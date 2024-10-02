@@ -28,7 +28,11 @@ const App = () => {
 
   const resetFeedback = () => {
     setFeedback({ good: 0, neutral: 0, bad: 0 });
-    localStorage.removeItem("feedback");
+
+    localStorage.setItem(
+      "feedback",
+      JSON.stringify({ good: 0, neutral: 0, bad: 0 })
+    );
   };
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
